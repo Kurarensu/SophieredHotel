@@ -7,6 +7,7 @@ use App\Http\Middleware\SuperAdmin;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Normal;
 
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
