@@ -1,60 +1,119 @@
 <x-app-layout>
 
-    <div class="container mt-5">
-        <a href="{{ url('roles') }}" class="btn btn-primary mx-1">Roles</a>
-        <a href="{{ url('permissions') }}" class="btn btn-info mx-1">Permissions</a>
-        <a href="{{ url('users') }}" class="btn btn-warning mx-1">Users</a>
-    </div>
-
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-md-12">
-
-                @if (session('status'))
-                    <div class="alert alert-success">{{ session('status') }}</div>
-                @endif
-
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h4>Permissions
-                            @can('create permission')
-                            <a href="{{ url('permissions/create') }}" class="btn btn-primary float-end">Add Permission</a>
-                            @endcan
-                        </h4>
-                    </div>
-                    <div class="card-body">
-
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th width="40%">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($permissions as $permission)
-                                <tr>
-                                    <td>{{ $permission->id }}</td>
-                                    <td>{{ $permission->name }}</td>
-                                    <td>
-                                        @can('update permission')
-                                        <a href="{{ url('permissions/'.$permission->id.'/edit') }}" class="btn btn-success">Edit</a>
-                                        @endcan
-
-                                        @can('delete permission')
-                                        <a href="{{ url('permissions/'.$permission->id.'/delete') }}" class="btn btn-danger mx-2">Delete</a>
-                                        @endcan
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
+<div class="mb-8">
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol role="list" class="flex items-center space-x-4">
+      <li>
+        <div>
+          <a href="#" class="text-gray-400 hover:text-gray-500">
+            <svg class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" />
+            </svg>
+            <span class="sr-only">Home</span>
+          </a>
         </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+          </svg>
+          <a href="{{ url('roles') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Roles</a>
+        </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+          </svg>
+          <a href="{{ url('permissions') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Permissions</a>
+        </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+          </svg>
+          <a href="{{ url('users') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Users</a>
+        </div>
+      </li>
+    </ol>
+  </nav>
+</div>
+
+
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  
+
+  <div class="sm:flex sm:items-center">
+
+    @if (session('status'))
+                    <div class="alert alert-success">{{ session('status') }}</div>
+     @endif
+
+    
+     
+
+    <div class="sm:flex-auto">
+      <h1 class="text-base font-semibold leading-6 text-gray-900">Permissions</h1>
+      <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
     </div>
 
+    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+        @can('create permission')
+        <button type="button" onclick="window.location.href='{{ url('permissions/create') }}';" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        Add Permission
+        </button>
+      @endcan
+    </div>
+  </div>
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">ID</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">NAME</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">ACTION</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+           
+          @foreach ($permissions as $permission)
+            <tr class="even:bg-gray-50">
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $permission->id }}</td>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ $permission->name }}</td>
+                
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
+                        
+                    @can('update permission')
+                        <a href="{{ url('permissions/'.$permission->id.'/edit') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                            Edit
+                        </a>
+                    @endcan
+
+                    @can('delete permission')
+                        <a href="{{ url('permissions/'.$permission->id.'/delete') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                            Delete
+                        </a>
+                    @endcan
+
+                   
+
+                </td>
+            </tr>
+            @endforeach
+
+            <!-- More people... -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
 </x-app-layout>

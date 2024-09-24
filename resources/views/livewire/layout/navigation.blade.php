@@ -16,9 +16,9 @@ $logout = function (Logout $logout) {
 <!-- Static sidebar for desktop -->
 <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
     <!-- Sidebar component, swap this element with another sidebar if you like -->
-    <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
+    <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
       <div class="flex h-16 shrink-0 items-center">
-        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+        <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="Your Company">
       </div>
       <nav class="flex flex-1 flex-col">
         <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -86,98 +86,39 @@ $logout = function (Logout $logout) {
               </li>
             </ul>
             @endif
+            
+          <!-- Profile Dropdown -->
+          <li x-data="{ open: false }" class="relative">
+              <button @click="open = !open" class="group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                  <img class="h-8 w-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                  <span aria-hidden="true">{{ auth()->user()->name }}</span>
+                  <svg :class="{ 'rotate-180': open }" class="ml-2 h-4 w-4 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v10l3-3a1 1 0 011.414 1.414l-4.707 4.707a1 1 0 01-1.414 0l-4.707-4.707A1 1 0 016.293 11l3 3V4a1 1 0 011-1z" clip-rule="evenodd" />
+                  </svg>
+              </button>
 
+              <!-- Multilevel Menu -->
+              <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                  <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      Profile
+                  </a>
+                  <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                          Logout
+                      </button>
+                  </form>
+              </div>
           </li>
-          <li>
+          </li>
+          
+
+
             
       </nav>
     </div>
   </div>
 
-  <div class="lg:pl-72">
-    <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-      <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
-        <span class="sr-only">Open sidebar</span>
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
-
-      <!-- Separator -->
-      <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
-
-      <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-        <form class="relative flex flex-1" action="#" method="GET">
-          <label for="search-field" class="sr-only">Search</label>
-          <svg class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
-          </svg>
-          <input id="search-field" class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search">
-        </form>
-        <div class="flex items-center gap-x-4 lg:gap-x-6">
-          
-
-          <!-- Separator -->
-          <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true"></div>
-
-          <!-- Profile dropdown -->
-            <div x-data="{ open: false }" class="relative">
-                <!-- Button -->
-                <button 
-                    type="button" 
-                    class="-m-1.5 flex items-center p-1.5" 
-                    @click="open = !open" 
-                    @click.away="open = false" 
-                    id="user-menu-button" 
-                    aria-expanded="false" 
-                    aria-haspopup="true">
-                    
-                    <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                    <span class="hidden lg:flex lg:items-center">
-                        <span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">Tom Cook</span>
-                        <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                        </svg>
-                    </span>
-                </button>
-
-                <!-- Dropdown -->
-                <div 
-                    x-show="open" 
-                    x-transition:enter="transition ease-out duration-100" 
-                    x-transition:enter-start="transform opacity-0 scale-95" 
-                    x-transition:enter-end="transform opacity-100 scale-100" 
-                    x-transition:leave="transition ease-in duration-75" 
-                    x-transition:leave-start="transform opacity-100 scale-100" 
-                    x-transition:leave-end="transform opacity-0 scale-95" 
-                    class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" 
-                    role="menu" 
-                    aria-orientation="vertical" 
-                    aria-labelledby="user-menu-button" 
-                    tabindex="-1">
-
-                    
-                    <!-- Dropdown Links -->
-                    <x-dropdown-link :href="route('profile')" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" wire:navigate>
-                        {{ __('Profile') }}
-                    </x-dropdown-link>
-
-                    <!-- Authentication -->
-                    <button wire:click="logout" class="w-full text-start" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                        <x-dropdown-link>
-                            {{ __('Log Out') }}
-                        </x-dropdown-link>
-                    </button>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
 </nav>
 
 

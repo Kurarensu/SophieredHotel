@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-gray-900">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-white">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased h-full">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen .bg-gray-50 dark:bg-gray-800 shadow">
             <livewire:layout.navigation />
 
             <!-- Page Heading -->
@@ -28,11 +28,16 @@
             @endif -->
 
             <!-- Page Content -->
-            <main class="py-10">
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            
+            <main class="py-10 lg:pl-72">
+                <div class="px-4 sm:px-6 lg:px-8">
+                <!-- Your content -->
                 {{ $slot }}
                 </div>
             </main>
         </div>
+
+        
+
     </body>
 </html>
