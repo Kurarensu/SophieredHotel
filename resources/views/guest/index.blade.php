@@ -66,18 +66,19 @@
 
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
   
+
   <div class="sm:flex sm:items-center">
 
     <div class="sm:flex-auto">
-      <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
+      <h1 class="text-base font-semibold leading-6 text-gray-900">Guest</h1>
       <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
     </div>
 
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-      @can('create user')
-      <button type="button" onclick="window.location.href='{{ url('users/create') }}';" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-      Add user
-      </button>
+        @can('create guest')
+        <button type="button" onclick="window.location.href='{{ url('guests/create') }}';" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        Add Guest
+        </button>
       @endcan
     </div>
   </div>
@@ -90,40 +91,47 @@
               <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">ID</th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">NAME</th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">EMAIL</th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">ROLES</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">PHONE NO.</th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">ACTION</th>
             </tr>
           </thead>
           <tbody class="bg-white">
            
-            @foreach ($users as $user)
-            <tr class="even:bg-gray-50">
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->id }}</td>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ $user->name }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->email }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    @if (!empty($user->getRoleNames()))
-                        @foreach ($user->getRoleNames() as $rolename)
-                            <label class="badge bg-primary mx-1">{{ $rolename }}</label>
-                        @endforeach
-                    @endif
-                </td>
-                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
-                    @can('update user')
-                    <a href="{{ url('users/'.$user->id.'/edit') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Edit</a>
-                    @endcan
+          @if($guest->isEmpty())
+                <tr>
+                    <td colspan="5" class="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">
+                        No guest records available.
+                    </td>
+                </tr>
+            @else
+                @foreach ($guest as $guest)
+                <tr class="even:bg-gray-50">
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $guest->guest_id }}</td>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                        {{ $guest->first_name }} {{ $guest->last_name }}
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $guest->email }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $guest->phone_number }}</td>
+                    
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
+                        @can('update guest')
+                            <a href="{{ url('guests/'.$guest->guest_id.'/edit') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                Edit
+                            </a>
+                        @endcan
 
-                    @can('delete user')
-                        <a href="{{ url('users/'.$user->id.'/delete') }}"
-                          class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                          onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
-                          Delete
-                        </a>
-                    @endcan
+                        @can('delete guest')
+                            <a href="{{ url('guests/'.$guest->guest_id.'/delete') }}"
+                            class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            onclick="return confirm('Are you sure you want to delete this guest? This action cannot be undone.');">
+                            Delete
+                            </a>
+                        @endcan
+                    </td>
+                </tr>
+                @endforeach
+            @endif
 
-                </td>
-            </tr>
-            @endforeach
 
             <!-- More people... -->
           </tbody>
@@ -134,4 +142,5 @@
 </div>
 
 
+    
 </x-app-layout>

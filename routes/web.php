@@ -32,6 +32,9 @@ Route::group(['middleware' => ['role:super-admin|admin']], function() {
     
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+
+    Route::resource('guests', App\Http\Controllers\GuestsController::class);
+    Route::get('guests/{guestId}/delete', [App\Http\Controllers\GuestsController::class, 'destroy']);
     
     });
 

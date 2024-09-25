@@ -31,6 +31,6 @@ class Bookings extends Model
 
     public function guest()
     {
-        return $this->belongsTo(Guests::class, 'guest_id');
+        return $this->belongsTo(Guests::class, 'guest_id' , 'guest_id');
     }
 }

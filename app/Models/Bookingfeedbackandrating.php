@@ -22,12 +22,12 @@ class Bookingfeedbackandrating extends Model
     // Relationship with Booking
     public function booking()
     {
-        return $this->belongsTo(Booking::class, 'booking_id');
+        return $this->belongsTo(Bookings::class, 'booking_id');
     }
 
     // Relationship with Guest
     public function guest()
     {
-        return $this->belongsTo(Guests::class, 'guest_id');
+        return $this->belongsTo(Guests::class, 'guest_id', 'guest_id');
     }
 }
