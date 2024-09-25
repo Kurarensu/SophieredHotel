@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller; // Import the base controller if not already imported
 use Spatie\Permission\Models\Permission; // If using Spatie package for permission management
 
 

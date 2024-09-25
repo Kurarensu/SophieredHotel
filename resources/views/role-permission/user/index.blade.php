@@ -106,8 +106,13 @@
                     @endcan
 
                     @can('delete user')
-                    <a href="{{ url('users/'.$user->id.'/delete') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Delete</a>
+                        <a href="{{ url('users/'.$user->id.'/delete') }}"
+                          class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                          onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                          Delete
+                        </a>
                     @endcan
+
                 </td>
             </tr>
             @endforeach

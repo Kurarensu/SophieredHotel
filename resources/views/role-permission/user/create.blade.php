@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @if (session('status'))
+    @if ($errors->any())
         <div class="rounded-md bg-red-50 p-4">
             <div class="flex">
                 <div class="flex-shrink-0">

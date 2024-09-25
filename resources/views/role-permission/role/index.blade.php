@@ -50,14 +50,12 @@
       </svg>
     </div>
     <div class="ml-3">
-      <h3 class="text-sm font-medium text-yellow-800">{{ session('status') }}</h3>
-      <div class="mt-2 text-sm text-yellow-700">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.</p>
-      </div>
+      <h3 class="text-sm font-medium text-green-800">{{ session('status') }}</h3>
     </div>
   </div>
 </div>
 @endif
+
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
   
   <div class="sm:flex sm:items-center">
@@ -93,9 +91,9 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $role->id }}</td>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ $role->name }}</td>
                 
-                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 space-x-2 text-sm font-medium sm:pr-3">
                         <a href="{{ url('roles/'.$role->id.'/give-permissions') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            Add
+                            Add/Edit Permission
                         </a>
                     @can('update role')
                         <a href="{{ url('roles/'.$role->id.'/edit') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -104,8 +102,10 @@
                     @endcan
 
                     @can('delete role')
-                        <a href="{{ url('roles/'.$role->id.'/delete') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            Delete
+                        <a href="{{ url('roles/'.$role->id.'/delete') }}"
+                          class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                          onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                          Delete
                         </a>
                     @endcan
 
