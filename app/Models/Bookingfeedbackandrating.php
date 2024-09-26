@@ -28,6 +28,6 @@ class Bookingfeedbackandrating extends Model
     // Relationship with Guest
     public function guest()
     {
-        return $this->belongsTo(Guests::class, 'guest_id', 'guest_id');
+        return $this->belongsTo(Guests::class, 'id');
     }
 }

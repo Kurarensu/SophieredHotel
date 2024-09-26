@@ -11,7 +11,7 @@ class Guests extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'guest_id';
+    protected $primaryKey = 'id';
 
     // If 'guest_id' is not auto-incrementing, set incrementing to false
     public $incrementing = true; // Set to false if 'guest_id' is not auto-incrementing

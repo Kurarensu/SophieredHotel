@@ -100,7 +100,7 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $permission->id }}</td>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ $permission->name }}</td>
                 
-                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 space-x-2 text-sm font-medium sm:pr-3">
                         
                     @can('update permission')
                         <a href="{{ url('permissions/'.$permission->id.'/edit') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">

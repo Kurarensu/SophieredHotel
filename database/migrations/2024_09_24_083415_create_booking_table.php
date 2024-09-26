@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id('booking_id'); // Primary key
-            $table->foreignId('room_id')->references('room_id')->on('rooms')->onDelete('cascade'); // Foreign key to the rooms table
-            $table->foreignId('guest_id')->references('guest_id')->on('guests')->onDelete('cascade'); // Foreign key to the guests table
+            $table->foreignId('room_id')->references('id')->on('rooms')->onDelete('cascade'); // Foreign key to the rooms table
+            $table->foreignId('guest_id')->references('id')->on('guests')->onDelete('cascade'); // Foreign key to the guests table
             $table->date('check_in'); // Check-in date
             $table->date('check_out'); // Check-out date
             $table->integer('number_of_adults'); // Number of adults

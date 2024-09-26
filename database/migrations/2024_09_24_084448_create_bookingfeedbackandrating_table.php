@@ -22,7 +22,7 @@ return new class extends Migration
 
             // Foreign key constraints
             $table->foreign('booking_id')->references('booking_id')->on('bookings')->onDelete('cascade');
-            $table->foreign('guest_id')->references('guest_id')->on('guests')->onDelete('cascade');
+            $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
         });
     }
 

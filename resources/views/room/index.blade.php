@@ -18,31 +18,7 @@
           <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
           </svg>
-          <a href="{{ url('roles') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Roles</a>
-        </div>
-      </li>
-      <li>
-        <div class="flex items-center">
-          <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-          </svg>
-          <a href="{{ url('permissions') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Permissions</a>
-        </div>
-      </li>
-      <li>
-        <div class="flex items-center">
-          <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-          </svg>
-          <a href="{{ url('users') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Users</a>
-        </div>
-      </li>
-      <li>
-        <div class="flex items-center">
-          <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-          </svg>
-          <a href="{{ url('guests') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Guest</a>
+          <a href="{{ url('rooms') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Rooms</a>
         </div>
       </li>
     </ol>
@@ -70,14 +46,14 @@
   <div class="sm:flex sm:items-center">
 
     <div class="sm:flex-auto">
-      <h1 class="text-base font-semibold leading-6 text-gray-900">Guest</h1>
+      <h1 class="text-base font-semibold leading-6 text-gray-900">Rooms</h1>
       <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
     </div>
 
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        @can('create guest')
-        <button type="button" onclick="window.location.href='{{ url('guests/create') }}';" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-        Add Guest
+        @can('create room')
+        <button type="button" onclick="window.location.href='{{ url('rooms/create') }}';" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        Add Room
         </button>
       @endcan
     </div>
@@ -89,39 +65,43 @@
           <thead>
             <tr>
               <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">ID</th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">NAME</th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">EMAIL</th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">PHONE NO.</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">ROOM NUMBER</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">TYPE</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">PRICE PER NIGHT</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">STATUS</th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">ACTION</th>
             </tr>
           </thead>
           <tbody class="bg-white">
            
-          @if($guest->isEmpty())
+          @if($room->isEmpty())
                 <tr>
                     <td colspan="5" class="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">
-                        No guest records available.
+                        No room records available.
                     </td>
                 </tr>
             @else
-                @foreach ($guest as $guest)
+                @foreach ($room as $room)
                 <tr class="even:bg-gray-50">
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $guest->id }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $room->id }}</td>
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-                        {{ $guest->first_name }} {{ $guest->last_name }}
+                        {{ $room->room_number }} 
                     </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $guest->email }}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $guest->phone_number }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $room->room_type }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $room->price_per_night }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $room->status }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><img src="{{ asset('storage/images/'.$room->image) }}" alt="Uploaded Image" class="w-64 h-auto rounded-lg shadow-md"></td>
+                    
                     
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 space-x-2 text-sm font-medium sm:pr-3">
-                        @can('update guest')
-                            <a href="{{ url('guests/'.$guest->id.'/edit') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        @can('update room')
+                            <a href="{{ url('rooms/'.$room->id.'/edit') }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                 Edit
                             </a>
                         @endcan
 
-                        @can('delete guest')
-                            <a href="{{ url('guests/'.$guest->id.'/delete') }}"
+                        @can('delete room')
+                            <a href="{{ url('rooms/'.$room->id.'/delete') }}"
                             class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                             onclick="return confirm('Are you sure you want to delete this guest? This action cannot be undone.');">
                             Delete

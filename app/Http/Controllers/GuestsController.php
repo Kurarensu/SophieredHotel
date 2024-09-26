@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guests;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission; // If using Spatie package for permission management
 
 class GuestsController extends Controller
 {
@@ -47,7 +48,7 @@ class GuestsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Guest $guest)
+    public function show(Guests $guest)
     {
         return view('guests.show', compact('guest'));
     }
@@ -67,8 +68,7 @@ class GuestsController extends Controller
      */
     public function update(Request $request, Guests $guest)
     {
-        $guest = Guests::where('email', $request->email)->where('guest_id', $guest->guest_id)->first();
-
+        
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -76,7 +76,7 @@ class GuestsController extends Controller
             'password' => 'required|min:8',
             'phone_number' => 'required|min:11',
             'address' => 'required',
-            'email' => 'required|email|unique:guests,email,' . $guest->guest_id
+            'email' => 'required|email|unique:guests,email,' . $guest->id
         ]);
 
         $guest->update($request->all());
@@ -87,9 +87,12 @@ class GuestsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Guest $guest)
+    public function destroy($guestId)
     {
+        $guest = Guests::findOrFail($guestId);
         $guest->delete();
-        return redirect()->route('guests.index')->with('success', 'Guest deleted successfully.');
+        return redirect('guests')->with('status','Guest deleted successfully.');
+
+        
     }
 }

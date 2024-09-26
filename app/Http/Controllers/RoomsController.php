@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
+use App\Models\Rooms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission; // If using Spatie package for permission management
 
 class RoomsController extends Controller
 {
@@ -12,8 +15,8 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        $rooms = Room::all();
-        return view('rooms.index', compact('rooms'));
+        $rooms = Rooms::all();
+        return view('room.index', ['room' => $rooms]);
     }
 
     /**
@@ -21,7 +24,7 @@ class RoomsController extends Controller
      */
     public function create()
     {
-        return view('rooms.create');
+        return view('room.create');
     }
 
     /**
@@ -34,17 +37,45 @@ class RoomsController extends Controller
             'room_type' => 'required',
             'price_per_night' => 'required|numeric',
             'status' => 'required',
-            'image' => 'nullable|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Max file size 2MB
         ]);
 
-        Room::create($request->all());
-        return redirect()->route('rooms.index')->with('success', 'Room created successfully.');
+        // Handle file upload
+        if ($request->hasFile('image')) {
+            // Get the file from the request
+            $file = $request->file('image');
+            
+            // Extract only the filename
+            $filename = time() . '-' . $file->getClientOriginalName();
+            
+            // Store the file in the 'public/images' directory
+            $file->storeAs('images', $filename, 'public');
+
+            // Optionally, return the path or store it in the database
+            //return back()->with('success', 'Image uploaded successfully!')->with('image', $imagePath);
+
+            
+            Rooms::create([
+                'room_number' => $request->room_number,
+                'room_type' => $request->room_type,
+                'price_per_night' => $request->price_per_night,
+                'status' => $request->status,
+                'image' => $filename
+            ]);
+
+            return redirect('rooms')->with('status','Room Created Successfully');
+        }
+
+
+        /* Rooms::create($request->all());
+        return redirect('rooms')->with('status','Room Created Successfully'); */
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Room $room)
+    public function show(Rooms $room)
     {
         return view('rooms.show', compact('room'));
     }
@@ -52,15 +83,17 @@ class RoomsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Room $room)
+    public function edit(Rooms $room)
     {
-        return view('rooms.edit', compact('room'));
+        return view('room.edit',[
+            'room' => $room
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Room $room)
+    public function update(Request $request, Rooms $room)
     {
         $request->validate([
             'room_number' => 'required',
@@ -77,9 +110,11 @@ class RoomsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Room $room)
+    public function destroy($roomId)
     {
+        $room = Rooms::findOrFail($roomId);
         $room->delete();
-        return redirect()->route('rooms.index')->with('success', 'Room deleted successfully.');
+        return redirect('rooms')->with('status','Room deleted successfully.');
+        
     }
 }

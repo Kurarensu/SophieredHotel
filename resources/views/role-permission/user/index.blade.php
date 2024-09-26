@@ -95,7 +95,13 @@
             </tr>
           </thead>
           <tbody class="bg-white">
-           
+          @if($users->isEmpty())
+                <tr>
+                    <td colspan="5" class="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">
+                        No guest records available.
+                    </td>
+                </tr>
+            @else
             @foreach ($users as $user)
             <tr class="even:bg-gray-50">
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->id }}</td>
@@ -124,6 +130,7 @@
                 </td>
             </tr>
             @endforeach
+            @endif
 
             <!-- More people... -->
           </tbody>

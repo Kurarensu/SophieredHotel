@@ -26,11 +26,11 @@ class Bookings extends Model
     // Relationships
     public function room()
     {
-        return $this->belongsTo(Rooms::class, 'room_id');
+        return $this->belongsTo(Rooms::class, 'id');
     }
 
     public function guest()
     {
-        return $this->belongsTo(Guests::class, 'guest_id' , 'guest_id');
+        return $this->belongsTo(Guests::class, 'id');
     }
 }
