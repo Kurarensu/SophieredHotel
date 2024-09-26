@@ -6,7 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-class SuperAdmin
+
+class Customer
 {
     /**
      * Handle an incoming request.
@@ -15,23 +16,26 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         if(!Auth::check()){
             return redirect()->route('login');
         }
 
         $userRole=Auth::user()->role;
 
-        if($userRole==1){
+        if($userRole==4){
             return $next($request);
         }
 
-        if($userRole==2){
-            return redirect()->route('admin');
+        if($userRole==1){
+            return redirect()->route('superadmin');
         }
 
         if($userRole==3){
             return redirect()->route('dashboard');
+        }
+
+        if($userRole==2){
+            return redirect()->route('admin');
         }
     }
 }

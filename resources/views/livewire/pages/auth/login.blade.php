@@ -21,13 +21,15 @@ $login = function () {
 
     switch($userRole){
         case 1:
-        $this->redirectIntended(default: route('superadmin', absolute: false), navigate: true);
+            $this->redirectIntended(default: route('superadmin', absolute: false), navigate: true);
         break;
         case 2:
-        $this->redirectIntended(default: route('admin', absolute: false), navigate: true);
+            $this->redirectIntended(default: route('admin', absolute: false), navigate: true);
         break;
         case 3:
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+            $this->redirectIntended(default: route('normal', absolute: false), navigate: true);
+        case 4:
+            $this->redirectIntended(default: route('customer', absolute: false), navigate: true);
         break;
         default:
             return redirect('/');
@@ -64,22 +66,25 @@ $login = function () {
 
         <!-- Remember Me -->
         <div class="block mt-4">
-            <label for="remember" class="inline-flex items-center">
-                <input wire:model="form.remember" id="remember" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}" wire:navigate>
+                <a class="underline text-sm  text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}" wire:navigate>
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
+        </div>
 
+        <div class="flex items-center justify-end mt-4">
+            
             <x-primary-button class="ms-3">
                 {{ __('Log in') }}
             </x-primary-button>
+            
+        </div>
+        <!-- Register Button -->
+        <div class="flex items-center justify-center mt-4">
+            <a href="{{ route('register') }}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                {{ __('Don\'t have an account? Register') }}
+            </a>
         </div>
     </form>
 </div>

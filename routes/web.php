@@ -8,17 +8,28 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified','normal'])
     ->name('dashboard');
 
-    Route::view('admin', 'admin')
+    
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified','customer'])
+    ->name('dashboard');
+    
+Route::view('admin', 'admin')
     ->middleware(['auth', 'verified','admin'])
     ->name('admin');
 
-    Route::view('superadmin', 'superadmin')
+Route::view('superadmin', 'superadmin')
     ->middleware(['auth', 'verified','superadmin'])
     ->name('superadmin');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+// Guest Routes
+Route::middleware(['auth', 'role:guest'])->group(function () {
+        Route::get('/guest', [GuestController::class, 'index'])->name('guest.dashboard');
+        // Add more guest routes here
+    });
 
 Route::group(['middleware' => ['role:super-admin|admin']], function() {
 

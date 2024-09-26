@@ -12,15 +12,28 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
     
+
+    protected $primaryKey = 'id';
+
+    // If 'guest_id' is not auto-incrementing, set incrementing to false
+    public $incrementing = true; // Set to false if 'guest_id' is not auto-incrementing
+
+    // If 'guest_id' is not an integer, set the correct type
+    protected $keyType = 'int'; // Change to 'string' if necessary
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'first_name',
+        'last_name',
+        'gender',
         'password',
+        'email',
+        'phone_number',
+        'address',
     ];
 
     /**

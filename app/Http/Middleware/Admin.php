@@ -33,5 +33,9 @@ class Admin
         if($userRole==3){
             return redirect()->route('dashboard');
         }
+
+        if($userRole==4){
+            return redirect()->route('customer');
+        }
     }
 }

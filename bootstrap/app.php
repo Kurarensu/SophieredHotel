@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\SuperAdmin;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Normal;
+use App\Http\Middleware\Customer;
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -24,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'superadmin'=>SuperAdmin::class,
             'admin'=>Admin::class,
             'normal'=>Normal::class,
+            'customer'=>Customer::class,
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class

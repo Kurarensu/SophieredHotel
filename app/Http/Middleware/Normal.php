@@ -25,6 +25,10 @@ class Normal
             return $next($request);
         }
 
+        if($userRole==4){
+            return redirect()->route('customer');
+        }
+
         if($userRole==2){
             return redirect()->route('admin');
         }
