@@ -25,11 +25,6 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-// Guest Routes
-Route::middleware(['auth', 'role:guest'])->group(function () {
-        Route::get('/guest', [GuestController::class, 'index'])->name('guest.dashboard');
-        // Add more guest routes here
-    });
 
 Route::group(['middleware' => ['role:super-admin|admin']], function() {
 
@@ -49,6 +44,9 @@ Route::group(['middleware' => ['role:super-admin|admin']], function() {
 
     Route::resource('rooms', App\Http\Controllers\RoomsController::class);
     Route::get('rooms/{roomId}/delete', [App\Http\Controllers\RoomsController::class, 'destroy']);
+
+    Route::resource('customer', App\Http\Controllers\CustomerController::class);
+    Route::get('customer/{customerId}/delete', [App\Http\Controllers\CustomerController::class, 'destroy']);
     
     });
 

@@ -37,14 +37,7 @@
           <a href="{{ url('users') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Users</a>
         </div>
       </li>
-      <li>
-        <div class="flex items-center">
-          <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-          </svg>
-          <a href="{{ url('guests') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Guest</a>
-        </div>
-      </li>
+      
     </ol>
   </nav>
 </div>
@@ -105,14 +98,16 @@
             @foreach ($users as $user)
             <tr class="even:bg-gray-50">
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->id }}</td>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ $user->name }}</td>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ $user->first_name }} {{ $user->last_name }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->email }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+
                     @if (!empty($user->getRoleNames()))
                         @foreach ($user->getRoleNames() as $rolename)
                             <label class="badge bg-primary mx-1">{{ $rolename }}</label>
                         @endforeach
                     @endif
+                    
                 </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
                     @can('update user')

@@ -31,41 +31,81 @@
             
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-3">
-                        <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
+                <div class="sm:col-span-3">
+                        <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
                         <div class="mt-2">
-                            <input type="text" name="name" id="role-name" autocomplete="role-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            @error('name') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                            <input type="text" name="first_name" id="first-name" autocomplete="role-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @error('first_name') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
                         </div>
                     </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Last Name</label>
+                        <div class="mt-2">
+                            <input type="text" name="last_name" id="last-name" autocomplete="role-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @error('last_name') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
+                        <div class="mt-2">
+                            <input id="phone_number" name="phone_number" type="text" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="09123456789">
+                            @error('phone_number') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                        </div>
+                    </div> 
                 
-
-                <div class="sm:col-span-3">
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                    <div class="mt-2">
-                        <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <div class="sm:col-span-3">
+                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Address</label>
+                        <div class="mt-2">
+                            <input id="address" name="address" type="text" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @error('address') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                        </div>
                     </div>
-                </div> 
 
-                <div class="sm:col-span-3">
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                    <div class="mt-2">
-                        <input id="password" name="password" type="password" autocomplete="current-password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        @error('password') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                    <div class="sm:col-span-3">
+                        <label for="roles" class="block text-sm font-medium leading-6 text-gray-900">Gender</label>
+                        <div class="mt-2">
+                            @error('gender') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                            <select id="gender" name="gender" autocomplete="gender-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="sm:col-span-3">
-                    <label for="roles" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
-                    <div class="mt-2">
-                        <select id="roles" name="roles[]" autocomplete="roles-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                    <option value="">Select Role</option>
-                                    @foreach ($roles as $role)
-                                    <option value="{{ $role }}">{{ $role }}</option>
-                                    @endforeach
-                        </select>
+                    <div class="sm:col-span-3">
+                        <label for="roles" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
+                        <div class="mt-2">
+                            <select id="roles" name="roles[]" autocomplete="roles-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                        <option value="">Select Role</option>
+                                        @foreach ($roles as $role)
+                                        <option value="{{ $role }}">{{ $role }}</option>
+                                        @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                        <div class="mt-2">
+                            <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @error('email') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                        </div>
+                    </div> 
+
+                    <div class="sm:col-span-3">
+                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                        <div class="mt-2">
+                            <input id="password" name="password" type="password" autocomplete="current-password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @error('password') <span class="mt-2 text-sm text-red-700">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    
+
+                
 
                 </div>
             </div>

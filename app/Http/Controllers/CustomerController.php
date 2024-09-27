@@ -6,9 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Booking;
 use App\Models\Guests;
+use Spatie\Permission\Models\Permission;
 
 class CustomerController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $guests = Guests::all();
+        return view('customer.index', ['customer' => $guests]);
+        
+    }
+
     // Display all available rooms
     public function viewRooms()
     {
