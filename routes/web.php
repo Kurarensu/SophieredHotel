@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::view('/', 'welcome');
 
@@ -50,9 +51,17 @@ Route::group(['middleware' => ['role:super-admin|admin']], function() {
     
     });
 
+
 Route::post('/logout', function () {
         Auth::logout();
+        Session::flush(); // Optional: Clear all session data
         return redirect('/'); // Redirect to homepage or login page
     })->name('logout');
+
+
+
+  
     
+
+
 require __DIR__.'/auth.php';

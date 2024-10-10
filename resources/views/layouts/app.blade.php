@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased h-full">
-        <div class="min-h-screen .bg-gray-50 dark:bg-gray-800 shadow">
+        <div class="min-h-screen  shadow">
             <livewire:layout.navigation />
 
             <!-- Page Heading -->
@@ -29,8 +29,8 @@
 
             <!-- Page Content -->
             
-            <main class="py-10 lg:pl-72">
-                <div class="px-4 sm:px-6 lg:px-8">
+            <main class="py-10 lg:pl-72 bg-white">
+                <div class="px-4 sm:px-6 lg:px-8 bg-white">
                 <!-- Your content -->
                 {{ $slot }}
                 </div>

@@ -68,7 +68,7 @@
 
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         @can('create role')
-        <button type="button" onclick="window.location.href='{{ url('roles/create') }}';" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        <button type="button" onclick="window.location.href='{{ url('roles/create') }}';" class="block rounded-md bg-gray-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
         Add Role
         </button>
       @endcan
